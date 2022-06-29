@@ -1,6 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { createServer } from 'miragejs';
 import { App } from './App';
+
+createServer({
+  routes() {
+    this.namespace = 'api';
+    this.get('/transactions', () => {
+      return [
+        {
+          id: 1,
+          title: 'Salário',
+          amount: 1000,
+          type: 'deposit',
+          category: 'Salário',
+          createdAt: new Date(),
+        },
+        {
+          id: 2,
+          title: 'Almoço',
+          amount: -50,
+          type: 'withdraw',
+          category: 'Almoço',
+          createdAt: new Date(),
+        },
+        {
+          id: 3,
+          title: 'Lazer',
+          amount: 100,
+          type: 'deposit',
+          category: 'Lazer',
+          createdAt: new Date(),
+        },
+      ];
+    }
+    );
+  }
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
